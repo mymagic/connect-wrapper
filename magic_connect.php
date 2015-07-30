@@ -27,7 +27,7 @@ class MagicConnect extends Client {
     }
   }
 
-  public static function getData() {
+  public static function getUserData() {
     return static::$client->get('users/'.static::$id)->getBody();
   }
 
