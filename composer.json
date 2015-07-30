@@ -1,0 +1,12 @@
+{
+    "name": "magic/connect_wrapper",
+    "authors": [
+        {
+            "name": "Imran Ismail",
+            "email": "m.imran@mymagic.my"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.0"
+    }
+}
