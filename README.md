@@ -1,2 +1,2 @@
 # magic_connect_wrapper
-API Wrappers for MaGIC Connect
+API Wrapper for MaGIC Connect
