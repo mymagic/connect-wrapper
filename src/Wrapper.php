@@ -8,7 +8,7 @@ class Wrapper extends Client {
   private static $email, $cipher, $compare_str, $client, $id;
 
   static function init() {
-    if(empty(static::$client))
+    if (empty(static::$client) && isset($_COOKIE['magic_cookie']))
     {
       static::$client = new Client(array(
         'base_uri'  =>  'http://connect.mymagic.my/api/',
@@ -25,6 +25,8 @@ class Wrapper extends Client {
       $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
       $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
       static::$compare_str = md5(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $salt, static::$email, MCRYPT_MODE_ECB, $iv));
+    } else {
+      throw new Exception("You are not logged into MaGIC Connect");
     }
   }
 
