@@ -1,9 +1,9 @@
 <?php 
 
-namespace Magic\ConnectWrapper;
+namespace Magic\Connect;
 use \GuzzleHttp\Client;
  
-class ConnectWrapper extends Client {
+class Wrapper extends Client {
  
   private static $email, $cipher, $compare_str, $client, $id;
 

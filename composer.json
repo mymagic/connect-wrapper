@@ -1,6 +1,6 @@
 {
-    "name": "Magic/ConnectWrapper",
-    "description": "MaGIC Connect API Wrapper",
+    "name": "mymagic/connect",
+    "description": "MaGIC Connect API wrapper",
     "authors": [
         {
             "name": "Imran Ismail",
@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Magic\\ConnectWrapper\\": "src"
+            "MyMagic\\Connect\\": "src"
         }
     }
 }
