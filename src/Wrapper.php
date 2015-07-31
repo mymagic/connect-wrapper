@@ -38,4 +38,4 @@ class Wrapper extends Client {
  
 }
 
-ConnectWrapper::init();
+Wrapper::init();
