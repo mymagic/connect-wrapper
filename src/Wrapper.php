@@ -1,6 +1,6 @@
 <?php 
 
-namespace Magic\Connect;
+namespace MyMagic\Connect;
 use \GuzzleHttp\Client;
  
 class Wrapper extends Client {
