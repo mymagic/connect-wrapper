@@ -5,7 +5,7 @@ use \GuzzleHttp\Client;
  
 class Wrapper extends Client {
  
-  private static $email, $cipher, $compare_str, $client, $id;
+  private static $email, $cipher, $compare_str, $client, $id, $client_url;
 
   static function init($client_url = "http://mymagic.my") {
     if (empty(static::$client) && isset($_COOKIE['magic_cookie']))
