@@ -1,9 +1,10 @@
-<?php
-require 'vendor/autoload.php';
+<?php 
 
-use GuzzleHttp\Client;
-
-class MagicConnect extends Client {
+namespace Magic\ConnectWrapper;
+use \GuzzleHttp\Client;
+ 
+class ConnectWrapper extends Client {
+ 
   private static $email, $cipher, $compare_str, $client, $id;
 
   static function init() {
@@ -34,6 +35,7 @@ class MagicConnect extends Client {
   public static function isLoggedIn() {
     return static::$cipher === static::$compare_str;
   }
+ 
 }
 
-MagicConnect::init();
+ConnectWrapper::init();

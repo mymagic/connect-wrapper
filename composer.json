@@ -1,5 +1,6 @@
 {
-    "name": "magic/connect_wrapper",
+    "name": "Magic/ConnectWrapper",
+    "description": "MaGIC Connect API Wrapper",
     "authors": [
         {
             "name": "Imran Ismail",
@@ -8,5 +9,10 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Magic\\ConnectWrapper\\": "src"
+        }
     }
 }
