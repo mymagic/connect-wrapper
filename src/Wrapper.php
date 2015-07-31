@@ -7,7 +7,7 @@ class Wrapper extends Client {
  
   private static $email, $cipher, $compare_str, $client, $id;
 
-  static function init() {
+  static function init($client_url = "http://mymagic.my") {
     if (empty(static::$client) && isset($_COOKIE['magic_cookie']))
     {
       static::$client = new Client(array(
@@ -16,6 +16,7 @@ class Wrapper extends Client {
         'auth'      =>  array('magic', 'ilovemymagic'),
         'debug'     =>  false
       ));
+      static::$client_url = $client_url;
       $cookie = base64_decode($_COOKIE['magic_cookie']);
       $data = explode("|||", $cookie);    
       static::$id = $data[0];
@@ -39,5 +40,3 @@ class Wrapper extends Client {
   }
  
 }
-
-Wrapper::init();
