@@ -33,9 +33,7 @@ class Wrapper extends Client {
   }
 
   public static function isUserLoggedIn() {
-    if (static::$cipher === static::$compare_str) {
-      return true;
-    }
+    return static::$cipher === static::$compare_str;
   }
  
 }
