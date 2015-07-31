@@ -26,7 +26,7 @@ class Wrapper extends Client {
       $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
       static::$compare_str = md5(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $salt, static::$email, MCRYPT_MODE_ECB, $iv));
     } else {
-      throw new Exception("You are not logged into MaGIC Connect");
+      throw new \Exception("You are not logged into MaGIC Connect");
     }
   }
 
