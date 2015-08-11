@@ -33,7 +33,7 @@ class Wrapper extends Client {
   }
 
   public static function getUserData() {
-    return static::$client->get('users/'.static::$id)->getBody();
+    return static::$client->get('users/'.static::$id)->getBody()->getContents();
   }
 
   public static function isUserLoggedIn() {
