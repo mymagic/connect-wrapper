@@ -7,7 +7,7 @@ class Client {
   
   private $client, $cipher, $compare_str, $email, $id;
 
-  public function __construct($cookie) {
+  public function __construct() {
     $this->client = new BaseClient(array(
       'base_uri'  =>  'http://connect.mymagic.my/api/',
       'timeout'   =>  60,
@@ -15,7 +15,7 @@ class Client {
       'debug'     =>  false
     ));
 
-    $decoded_data = base64_decode($cookie);
+    $decoded_data = base64_decode($_COOKIE['magic_cookie']);
     $data = explode("|||", $decoded_data);
 
     $this->id = $data[0];
@@ -29,15 +29,15 @@ class Client {
     return $data;
   }
 
-  public function isUserLoggedIn() {
-    return compareIvString();
+  public function isLoggedIn() {
+    return $this->compareIvString();
   }
 
   private function compareIvString() {
     $salt = "thisisaveryawesomemagicsalt12345";
     $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
     $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-    $iv_string = md5(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $salt, static::$email, MCRYPT_MODE_ECB, $iv));
+    $iv_string = md5(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $salt, $this->email, MCRYPT_MODE_ECB, $iv));
 
     return $this->cipher === $iv_string;
   } 
