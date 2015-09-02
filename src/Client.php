@@ -15,14 +15,26 @@ class Client {
       'debug'     =>  false
     ));
 
-    $decoded_data = base64_decode($_COOKIE['magic_cookie']);
-    $data = explode("|||", $decoded_data);
-
-    $this->id = $data[0];
-    $this->email = $data[1];
-    $this->cipher = $data[2];
+    $this->analyzeMagicCookie();
   }
+    
+  public function analyzeMagicCookie() {
+	if($this->hasMagicCookie())
+	{
+		$decoded_data = base64_decode($_COOKIE['magic_cookie']);
+		$data = explode("|||", $decoded_data);
 
+		$this->id = $data[0];
+		$this->email = $data[1];
+		$this->cipher = $data[2];
+	}
+  }
+  
+  public function hasMagicCookie() {
+	if(!empty($_COOKIE['magic_cookie'])) return true;
+	return false;
+  }
+  
   public function getUserData() {
     $json_string = $this->client->get('users/'.$this->id)->getBody()->getContents();
     $data = json_decode($json_string)->data;
