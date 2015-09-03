@@ -44,6 +44,22 @@ class Client {
   public function isLoggedIn() {
     return $this->compareIvString();
   }
+  
+  public function getEmail(){
+	return $this->email;
+  }
+  
+  public function getLoginUrl($redirectUrl=''){
+	return 'http://connect.mymagic.my/login?redirect_uri='.$redirectUrl;
+  }
+  
+  public function getLogoutUrl($redirectUrl=''){
+	return 'http://connect.mymagic.my/logout?redirect_uri='.$redirectUrl;
+  }
+  
+  public function getProfileUrl(){
+	return 'http://connect.mymagic.my/profile';
+  }
 
   private function compareIvString() {
     $salt = "thisisaveryawesomemagicsalt12345";
