@@ -2,6 +2,7 @@
 
 namespace MyMagic\Connect;
 use \GuzzleHttp\Client as BaseClient;
+use \GuzzleHttp\Exception\ClientException;
 
 class Client {
   
@@ -14,7 +15,6 @@ class Client {
       'auth'      =>  array('magic', 'ilovemymagic'),
       'debug'     =>  false
     ));
-	$this->client->setDefaultOption('verify', false);
 
     $this->analyzeMagicCookie();
   }
@@ -109,28 +109,33 @@ class Client {
   
 	public function createUser($email, $firstName='', $lastName='')
 	{
-		// http://connect.mymagic.my/api/signup
-		$email = urlencode($email);
-		$data = array('form_params'=>
-			array
-			(
-				'email'=>$email,
-				'first_name'=>str_replace('@', '', $firstName), 
-				'last_name'=>str_replace('@', '', $lastName)
-			)
-		);
+		// some how email should not be urlencode else it failed
+		//$email = urlencode($email);
 		
 		try
 		{
-			$res = $this->client->post('/signup');
-			echo $res->getStatusCode();
-		} 
+			// http://connect.mymagic.my/api/signup
+			$r = $this->client->post('signup', array(
+				'form_params' => array(
+					'email' => $email, 
+					'first_name' => str_replace('@', ' ', $firstName),
+					'last_name' => str_replace('@', ' ', $lastName),
+				)
+			));
+			
+			if($r->getStatusCode() == 200)
+			{
+				return true;
+			}
+		}
 		catch (\Exception $e) 
 		{
-			echo $e->getMessage();
+			/*echo "<pre>";
+			echo "Status code: " . $e->getResponse()->getStatusCode();
+			echo "<br>";
+			print_r( $e->getResponse()->getBody()->getContents());*/
+			return false;
 		}
-		//print_r($res);echo $res->getStatusCode();exit;
-
 
 	}
 	
