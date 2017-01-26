@@ -7,6 +7,39 @@ use \GuzzleHttp\Exception\ClientException;
 class Client {
   
   private $client, $cipher, $compare_str, $email, $id;
+	
+  public function connect($request,$client_id,$client_secret,$uri){
+        $http = new BaseClient;
+        try {
+            $response = $http->post('http://connect2.mymagic.my/oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'authorization_code',
+                    'client_id' => $client_id,
+                    'client_secret' => $client_secret,
+                    'redirect_uri' => $uri,
+                    'code' => $request
+                ]
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+            if ($response && $response->getStatusCode() === 401) {
+                return \Redirect::to('login')->with('alert-fail', 'These credentials do not match our records.');
+            }
+        }
+        try {
+            $grab = json_decode((string)$response->getBody(), true)['access_token'];
+        } catch (\Exception $e) {
+            return \Redirect::to('/error')->with('alert-fail', 'Permission Denied.');
+        }
+        $apiresponse = $http->get('http://connect2.mymagic.my/api/user', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $grab,
+                'Content-Type' => 'application/json',
+            ],
+        ]);
+        return json_decode((string)$apiresponse->getBody(), true);
+    }
+
 
   public function __construct() {
     $this->client = new BaseClient(array(
