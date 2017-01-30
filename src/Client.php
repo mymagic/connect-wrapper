@@ -11,7 +11,7 @@ class Client {
   public function connect($request,$client_id,$client_secret,$uri){
         $http = new BaseClient;
         try {
-            $response = $http->post('http://connect.mymagic.my/oauth/token', [
+            $response = $http->post('http://account.mymagic.my/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'authorization_code',
                     'client_id' => $client_id,
@@ -31,7 +31,7 @@ class Client {
         } catch (\Exception $e) {
             return \Redirect::to('/error')->with('alert-fail', 'Permission Denied.');
         }
-        $apiresponse = $http->get('http://connect.mymagic.my/api/user', [
+        $apiresponse = $http->get('http://account.mymagic.my/api/user', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $grab,
                 'Content-Type' => 'application/json',
