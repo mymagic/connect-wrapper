@@ -11,11 +11,12 @@ class Client
     private $url = "http://account.mymagic.my",
         $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMzNjdmMzZiYzNhOWQxYTY5NmViNGEwZWY4NTUyNzg2MTcwMzUxNDE1NjkzMmRmZmExY2Q4NWNlZTY5OGZkZjQzYzk4NTU5MjQ5OTFhNDRmIn0.eyJhdWQiOiIxMCIsImp0aSI6ImMzNjdmMzZiYzNhOWQxYTY5NmViNGEwZWY4NTUyNzg2MTcwMzUxNDE1NjkzMmRmZmExY2Q4NWNlZTY5OGZkZjQzYzk4NTU5MjQ5OTFhNDRmIiwiaWF0IjoxNDg1OTIyNDQ0LCJuYmYiOjE0ODU5MjI0NDQsImV4cCI6MTgwMTQ1NTI0NCwic3ViIjoiMjMyMCIsInNjb3BlcyI6W119.Ee2YhXKPxJMXcqpElOovpG80ATep4VQKBFvFJ4tGBdr0N6EYdlCR56GCDtbwofkqNr2SE9hjngqkYBxu4VTYn9agfG-8zlg2KH9Uw6TRbilJbXacGGuve5mynyT-bjQpzsAshIR5VNW_uTcf330TwA3bv3rz_0KGjWL9WTWJk5atLzS84AjQc90QbNxvuh4rOH__VrDQeM6I1gqxj1fpMlpLg07MwT8BcNZ1aPIn1VPFswq-aPQfEm_JH8ND7Oj4l5VlMnKx8mZADqu-TsqIe7-0cSjYUXK-BkpyXfeMJLhWOroadh878lSD67xLfBdmeAOWU4w3ncXBur8anzmsQqCLtnTX71uQnmh4ApRDcpeOcyuok1S4-JQ-e72PGXbwLwkU2PHQedqayjwCshoKpAis-Gbef9LWWB7RcKavRf6PeMcuNaqNxJmqduYaVW5cmTZz_jH6MldUJG9p4s8mGycnxioo30UNOBMOrBmGCmOCvGJEnQb9yIZBFxJXVUTYYeT13GOyNJMKRfTFntM-z3-fdu1GST0lQtpJqngPcWHC7kvckjXptObA0bIFPc7pTuEX6PCz83ay3BNn5XwHpNApfCCHDQbvfaI9-dOgjLKFtrW55yHDTV04OE4Dzbwd5i2nMNlN4N6yVl9T_ZL1nOGWG6ZqPXpVRzOh7qSQY9k";
 
-    public function redirect($url, $permanent = false) {
-        if($permanent) {
+    public function redirect($url, $permanent = false)
+    {
+        if ($permanent) {
             header('HTTP/1.1 301 Moved Permanently');
         }
-        header('Location: '.$url);
+        header('Location: ' . $url);
         exit();
     }
 
@@ -44,13 +45,13 @@ class Client
             return $this->redirect('/');
         }
 
-        $apiresponse = $http->get($this->url . '/api/user', [
+        $apiResponse = $http->get($this->url . '/api/user', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $grab,
                 'Content-Type' => 'application/json',
             ],
         ]);
-        return json_decode((string)$apiresponse->getBody(), true);
+        return json_decode((string)$apiResponse->getBody(), true);
     }
 
     public function getLogoutUrl($redirectUrl = '')
@@ -74,10 +75,14 @@ class Client
             ],
         ]);
 
+        $data = json_decode((string)$response->getBody(), true);
         if ($response && $response->getStatusCode() === 200) {
-            return true;
+            if ($data->email === $email) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-
             return false;
         }
     }

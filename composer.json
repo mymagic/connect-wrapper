@@ -3,8 +3,8 @@
     "description": "MaGIC Connect API wrapper",
     "authors": [
         {
-            "name": "Imran Ismail",
-            "email": "m.imran@mymagic.my"
+            "name": "Rosaan Ramasamy",
+            "email": "rosaan@mymagic.my"
         }
     ],
     "require": {
