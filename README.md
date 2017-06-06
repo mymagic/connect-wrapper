@@ -7,13 +7,26 @@ composer install
 # 1.0 Usage
 
 ```
+// Init MaGIC Connect
+$this->magicConnect = new MyMagic\Connect\Client; 
 
-$this->magicConnect = new MyMagic\Connect\Client; // Init MaGIC Connect
-$this->magicConnect->connect("CODE","CLIENTID","CLIENTSECRET","CALLBACKURI"); // Returns  {JSON} once the user authorize their account. Refer 1.1
-$this->magicConnect->getLogoutUrl("REDIRECTURI"); // Logout user from connect and return to logout user on client side. Refer 1.2
-$this->magicConnect->getProfileUrl(); // User connect profile URL
-$this->magicConnect->isUserExists("EMAIL") // Check whether user exist or not on connect. Refer 1.3
-$this->magicConnect->createUser("EMAIL","FIRSTNAME","LASTNAME","PASSWORD"); // Create user on connect. Refer 1.4
+// optional, default to http://account.mymagic.my. use it in dev environment
+$this->magicConnect->setConnectUrl('http:accountd.mymagic.my');
+
+// Returns  {JSON} once the user authorize their account. Refer 1.1
+$this->magicConnect->connect("CODE","CLIENTID","CLIENTSECRET","CALLBACKURI"); 
+
+// Logout user from connect and return to logout user on client side. Refer 1.2
+$this->magicConnect->getLogoutUrl($redirectUrl = ''); 
+
+// User connect profile URL
+$this->magicConnect->getProfileUrl(); 
+
+// Check whether user exist or not on connect. Refer 1.3
+$this->magicConnect->isUserExists($email) 
+
+// Create user on connect. Refer 1.4
+$this->magicConnect->createUser($email, $firstName = '', $lastName = '', $password, $gender = '', $t_and_c = '1', $confirmation = '1', $country = ''); 
 
 ```
 
