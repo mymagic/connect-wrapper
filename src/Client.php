@@ -16,6 +16,11 @@ class Client
         $this->url = $connectUrl;
     }
 
+    public function getConnectUrl()
+    {
+        return $this->url;
+    }
+
     public function redirect($url, $permanent = false)
     {
         if ($permanent) {
@@ -61,7 +66,7 @@ class Client
 
     public function getLogoutUrl($redirectUrl = '')
     {
-        return $this->url . 'logout?redirect_uri=' . $redirectUrl;
+        return $this->url . '/logout?redirect_uri=' . $redirectUrl;
     }
 
     public function getProfileUrl()
@@ -96,7 +101,7 @@ class Client
     {
         try {
             $http = new BaseClient;
-            $r = $http->post($this->url . 'register', array(
+            $r = $http->post($this->url . '/register', array(
                 'form_params' => array(
                     'email' => $email,
                     'firstname' => str_replace('@', ' ', $firstName),
