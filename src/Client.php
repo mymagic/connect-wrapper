@@ -74,6 +74,20 @@ class Client
         return $this->url . '/profile';
     }
 
+    public function getUserData($email)
+    {
+        $http = new BaseClient;
+        $url = $this->url . '/api/get-user-details/' . $email;
+        $response = $http->get($url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token,
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $data = json_decode((string)$response->getBody(), false);
+        return $data;
+    }
 
     public function isUserExists($email)
     {
