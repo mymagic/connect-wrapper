@@ -99,7 +99,7 @@ class Client
             ],
         ]);
 
-        $data = json_decode((string)$response->getBody(), true);
+        $data = json_decode((string)$response->getBody(), false);
         if ($response && $response->getStatusCode() === 200) {
             if ($data->email === $email) {
                 return true;
