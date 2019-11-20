@@ -9,7 +9,7 @@ class Client
 {
     public $verifySsl = false;
     private $url = "http://account.mymagic.my",
-    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImUxNGY3ZTYxZjRiNTYwZTU5ZmNmM2JlM2RkNzVlYjA5OTlmYjExNTY1MWJkYzE2MDdhYzEwZmFhODk2MGM0ZWE2ZTU2MzE3Yjk0Y2VlNjc4In0.eyJhdWQiOiIyNiIsImp0aSI6ImUxNGY3ZTYxZjRiNTYwZTU5ZmNmM2JlM2RkNzVlYjA5OTlmYjExNTY1MWJkYzE2MDdhYzEwZmFhODk2MGM0ZWE2ZTU2MzE3Yjk0Y2VlNjc4IiwiaWF0IjoxNDk4MTI2MjAwLCJuYmYiOjE0OTgxMjYyMDAsImV4cCI6MTgxMzY1OTAwMCwic3ViIjoiMjMyMCIsInNjb3BlcyI6W119.BaRAoYV6RvBK3yEhl1GkEQkT9BPxAWMnd2ir3bC4ZrrudF9jsRwen64EHzpgDpv2Iqsn7a-k5hrQ_gN4C255iC4iKDlbN_2mRVrgzJon-I2h_8fLHiXuW7ROWrgz9SJBngteSvakz71qgDRDDW0y1OgJmU2AgvYTz6UwcR7PDZhyrK1-UKLM3u-woKfapvbTPdmlDn49J7KcAbCgjbakLsS3S_tFcSec7zLVyuqPlUNSYvvGR-_ROgUmWvK1XFuv65vLmBMaip_gYIPBVNsRgD7nL9jWN5GvFh9UZQFDLUUW3_zn3-19ecxBCZlqeoDerXkJe-qwdFt96cajnYXJ3INZSQe3au-dnEFS_vwq-7hy5tLcTdsySaf853puXfjZDzzyXV08xzEBhz_emFz8NDdBs4suBv2n_8Rd6HmtXSilWn40dishB9Rp4Y1RsWnHMlA0HkgErJykk0usHNWNb8y1iezqxxD-RD0Ea3EFfZip_zK_5SMR-Wu-oX4guF-N6f5vNH0-9WBGeInxz8IeFQI0_wVILqdqQ9BKIPMV-VEzpxonh3GzQ0uL7bo4oAdqYfRktFtlcRzk1WIfESh1VZROpk4B6eW5oVW77Tv3Bvb2q4AObjRq3usuvZVQQsi84Hzy1hRbj_7T4xmTUw6wn2VJLcO8gwBbEapgLIYqgC8";
+        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImUxNGY3ZTYxZjRiNTYwZTU5ZmNmM2JlM2RkNzVlYjA5OTlmYjExNTY1MWJkYzE2MDdhYzEwZmFhODk2MGM0ZWE2ZTU2MzE3Yjk0Y2VlNjc4In0.eyJhdWQiOiIyNiIsImp0aSI6ImUxNGY3ZTYxZjRiNTYwZTU5ZmNmM2JlM2RkNzVlYjA5OTlmYjExNTY1MWJkYzE2MDdhYzEwZmFhODk2MGM0ZWE2ZTU2MzE3Yjk0Y2VlNjc4IiwiaWF0IjoxNDk4MTI2MjAwLCJuYmYiOjE0OTgxMjYyMDAsImV4cCI6MTgxMzY1OTAwMCwic3ViIjoiMjMyMCIsInNjb3BlcyI6W119.BaRAoYV6RvBK3yEhl1GkEQkT9BPxAWMnd2ir3bC4ZrrudF9jsRwen64EHzpgDpv2Iqsn7a-k5hrQ_gN4C255iC4iKDlbN_2mRVrgzJon-I2h_8fLHiXuW7ROWrgz9SJBngteSvakz71qgDRDDW0y1OgJmU2AgvYTz6UwcR7PDZhyrK1-UKLM3u-woKfapvbTPdmlDn49J7KcAbCgjbakLsS3S_tFcSec7zLVyuqPlUNSYvvGR-_ROgUmWvK1XFuv65vLmBMaip_gYIPBVNsRgD7nL9jWN5GvFh9UZQFDLUUW3_zn3-19ecxBCZlqeoDerXkJe-qwdFt96cajnYXJ3INZSQe3au-dnEFS_vwq-7hy5tLcTdsySaf853puXfjZDzzyXV08xzEBhz_emFz8NDdBs4suBv2n_8Rd6HmtXSilWn40dishB9Rp4Y1RsWnHMlA0HkgErJykk0usHNWNb8y1iezqxxD-RD0Ea3EFfZip_zK_5SMR-Wu-oX4guF-N6f5vNH0-9WBGeInxz8IeFQI0_wVILqdqQ9BKIPMV-VEzpxonh3GzQ0uL7bo4oAdqYfRktFtlcRzk1WIfESh1VZROpk4B6eW5oVW77Tv3Bvb2q4AObjRq3usuvZVQQsi84Hzy1hRbj_7T4xmTUw6wn2VJLcO8gwBbEapgLIYqgC8";
 
     public function setConnectUrl($connectUrl)
     {
@@ -50,12 +50,15 @@ class Client
                 return $this->redirect('/');
             }
         }
-        
+
         try {
-            $grab = json_decode((string)$response->getBody(), true)['access_token'];
+            $grab = json_decode((string) $response->getBody(), true)['access_token'];
         } catch (\Exception $e) {
             return $this->redirect('/');
         }
+
+        setcookie('x-token-access', json_decode((string) $response->getBody(), true)['access_token'], time() + (86400 * 30), '/', '.mymagic.my');
+        setcookie('x-token-refresh', json_decode((string) $response->getBody(), true)['refresh_token'], time() + (86400 * 30), '/', '.mymagic.my');
 
         $apiResponse = $http->get($this->url . '/api/user', [
             'headers' => [
@@ -64,7 +67,13 @@ class Client
             ],
             'verify' => $this->verifySsl
         ]);
-        return json_decode((string)$apiResponse->getBody(), true);
+        return json_decode((string) $apiResponse->getBody(), true);
+    }
+
+    public function logout()
+    {
+        setcookie('x-token-access', '', time() - 3600, '/', '.mymagic.my');
+        setcookie('x-token-refresh', '', time() - 3600, '/', '.mymagic.my');
     }
 
     public function getLogoutUrl($redirectUrl = '')
@@ -89,7 +98,23 @@ class Client
             'verify' => $this->verifySsl
         ]);
 
-        $data = json_decode((string)$response->getBody(), false);
+        $data = json_decode((string) $response->getBody(), false);
+        return $data;
+    }
+
+    public function getUser($accessToken)
+    {
+        $http = new BaseClient;
+        $url = $this->url . '/api/user';
+        $response = $http->get($url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Accept' => 'application/json'
+            ],
+            'verify' => $this->verifySsl
+        ]);
+
+        $data = json_decode((string) $response->getBody(), false);
         return $data;
     }
 
@@ -104,7 +129,7 @@ class Client
             'verify' => $this->verifySsl
         ]);
 
-        $data = json_decode((string)$response->getBody(), false);
+        $data = json_decode((string) $response->getBody(), false);
         if ($response && $response->getStatusCode() === 200) {
             if ($data->email === $email) {
                 return true;
@@ -142,5 +167,4 @@ class Client
             return false;
         }
     }
-
 }
