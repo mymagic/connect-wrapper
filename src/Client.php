@@ -102,20 +102,49 @@ class Client
         return $data;
     }
 
-    public function getUser($accessToken)
+    public function getUser($accessToken, $refreshToken, $connectID, $connectSecret)
     {
         $http = new BaseClient;
         $url = $this->url . '/api/user';
-        $response = $http->get($url, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $accessToken,
-                'Accept' => 'application/json'
-            ],
-            'verify' => $this->verifySsl
-        ]);
+        try {
+            $response = $http->get($url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                    'Accept' => 'application/json'
+                ],
+                'verify' => $this->verifySsl
+            ]);
+        } catch (Exception $e) {
+            if ($e->getCode() === 401) {
+                $data = $http->post($this->url . '/oauth/token', [
+                    'form_params' => [
+                        'grant_type' => 'refresh_token',
+                        'refresh_token' => $refreshToken,
+                        'client_id' => $connectID,
+                        'client_secret' => $connectSecret,
+                        'scope' => '',
+                    ],
+                    'verify' => $this->verifySsl
+                ]);
+                setcookie('x-token-access', json_decode((string) $data->getBody(), true)['access_token'], time() + (86400 * 30), '/', '.mymagic.my');
+                setcookie('x-token-refresh', json_decode((string) $data->getBody(), true)['refresh_token'], time() + (86400 * 30), '/', '.mymagic.my');
+                $response = $http->get($url, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . json_decode((string) $data->getBody(), true)['access_token'],
+                        'Accept' => 'application/json'
+                    ],
+                    'verify' => $this->verifySsl
+                ]);
+            }
+        }
 
-        $data = json_decode((string) $response->getBody(), false);
-        return $data;
+        if (!empty($response)) {
+            $data = json_decode((string) $response->getBody(), false);
+            return $data;
+        } else {
+            header("HTTP/1.1 401 Unauthorized");
+            exit;
+        }
     }
 
     public function isUserExists($email)
