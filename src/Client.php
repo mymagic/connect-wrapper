@@ -57,8 +57,8 @@ class Client
             return $this->redirect('/');
         }
 
-        setcookie('x-token-access', json_decode((string) $response->getBody(), true)['access_token'], time() + (86400 * 30), '/', '.mymagic.my');
-        setcookie('x-token-refresh', json_decode((string) $response->getBody(), true)['refresh_token'], time() + (86400 * 30), '/', '.mymagic.my');
+        setcookie('x-token-access', json_decode((string) $response->getBody(), true)['access_token'], time() + (86400 * 30), '/');
+        setcookie('x-token-refresh', json_decode((string) $response->getBody(), true)['refresh_token'], time() + (86400 * 30), '/');
 
         $apiResponse = $http->get($this->url . '/api/user', [
             'headers' => [
@@ -72,8 +72,8 @@ class Client
 
     public function logout()
     {
-        setcookie('x-token-access', '', time() - 3600, '/', '.mymagic.my');
-        setcookie('x-token-refresh', '', time() - 3600, '/', '.mymagic.my');
+        setcookie('x-token-access', '', time() - 3600, '/');
+        setcookie('x-token-refresh', '', time() - 3600, '/');
     }
 
     public function getLogoutUrl($redirectUrl = '')
@@ -126,8 +126,8 @@ class Client
                     ],
                     'verify' => $this->verifySsl
                 ]);
-                setcookie('x-token-access', json_decode((string) $data->getBody(), true)['access_token'], time() + (86400 * 30), '/', '.mymagic.my');
-                setcookie('x-token-refresh', json_decode((string) $data->getBody(), true)['refresh_token'], time() + (86400 * 30), '/', '.mymagic.my');
+                setcookie('x-token-access', json_decode((string) $data->getBody(), true)['access_token'], time() + (86400 * 30), '/');
+                setcookie('x-token-refresh', json_decode((string) $data->getBody(), true)['refresh_token'], time() + (86400 * 30), '/');
                 $response = $http->get($url, [
                     'headers' => [
                         'Authorization' => 'Bearer ' . json_decode((string) $data->getBody(), true)['access_token'],
